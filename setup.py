@@ -12,7 +12,7 @@ except (IOError, ImportError):
 
 setup(
     name = 'beets-popularity',
-    version = '1.0.0',
+    version = '1.0.1',
     description = 'Beets plugin to store the popularity values from Spotify as flexible item attributes in the database',
     long_description = long_description,
     url = 'https://github.com/abba23/beets-popularity',
