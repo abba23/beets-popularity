@@ -2,6 +2,17 @@
 
 Beets plugin to store the popularity values from Spotify as flexible item attributes in the database
 
+## Installation
+Using pip:
+  
+    pip install beets-popularity
+
+Manually:
+
+    git clone https://github.com/abba23/beets-popularity.git
+    cd beets-popularity
+    python setup.py install
+
 ## Usage
     $ beet popularity happy
     popularity: Bon Jovi - The Circle - Happy Now: 20
