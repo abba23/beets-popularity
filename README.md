@@ -31,18 +31,18 @@ All imported files will automatically have a popularity attribute and value assi
 ## Query
 As the popularity of a song is a value between 0 and 100, you could filter your library like this in order to list all tracks that have a popularity of at least 20:
 
-    $ beet list -f '$title - $artist ($popularity)' popularity:20..100
+    $ beet list -f '$artist - $title ($popularity)' popularity:20..
     Bon Jovi - Happy Now (20)
     The Doors - Unhappy Girl (40)
     Kygo - Happy Birthday (59)
-    
+
 This is especially useful in combination with the [Smart Playlist Plugin](https://beets.readthedocs.io/en/v1.4.3/plugins/smartplaylist.html). Adding this to your configuration would allow you to have continuously updated playlists of the most popular songs in your library:
 
     smartplaylist:
         playlist_dir: ~/Music/Playlists
         playlists:
             - name: popular.m3u
-              query: 'popularity:70..100'
+              query: 'popularity:70..'
     
             - name: popular_rock.m3u
-              query: 'popularity:60..100 genre:Rock'
+              query: 'popularity:60.. genre:Rock'
