@@ -47,7 +47,7 @@ class Popularity(BeetsPlugin):
 
     def _set_popularity(self, item, nowrite):
         # query Spotify API
-        query = item.artist + ' ' + item.title
+        query = item.artist + ' ' + item.album + ' ' + item.title
         payload = {'q': query, 'type': 'track', 'limit': '1'}
         response = requests.get(self.API_URL, params=payload)
 
