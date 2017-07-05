@@ -13,11 +13,12 @@ class Popularity(BeetsPlugin):
         super(Popularity, self).__init__()
         self.item_types = {'popularity': types.INTEGER}
         self.register_listener('write', self._on_write)
-        self.API_URL = 'https://api.spotify.com/v1/search'
+        self.API_URL = 'https://api.deezer.com/search'
+        #self.API_URL = 'https://api.spotify.com/v1/search'
 
     def commands(self):
         command = ui.Subcommand('popularity',
-                                help='fetch popularity values from Spotify',
+                                help='fetch popularity values',
                                 aliases=['pop'])
         command.func = self._command
         command.parser.add_album_option()
@@ -47,8 +48,10 @@ class Popularity(BeetsPlugin):
 
     def _set_popularity(self, item, nowrite):
         # query Spotify API
-        query = item.artist + ' ' + item.album + ' ' + item.title
-        payload = {'q': query, 'type': 'track', 'limit': '1'}
+        query = 'artist:"' + item.artist + '" album:"' + item.album + '" track:"' + item.title + '"'
+        #query = item.artist + ' ' + item.album + ' ' + item.title
+        payload = {'q': query, 'order': 'RANKING'}
+        #payload = {'q': query, 'type': 'track', 'limit': '1'}
         response = requests.get(self.API_URL, params=payload)
 
         try:
@@ -57,13 +60,15 @@ class Popularity(BeetsPlugin):
 
             # load response as json
             response_json = json.loads(response.content)
-            tracks = response_json["tracks"]["items"]
+            tracks = response_json["data"]
+            #tracks = response_json["tracks"]["items"]
 
             # raise an exception if the query returned no tracks
             if not tracks:
                 raise EmptyResponseError()
 
-            popularity = tracks[0]["popularity"]
+            popularity = round(tracks[0]["rank"] / 10000)
+            #popularity = tracks[0]["popularity"]
             self._log.info(
                 u'{0.artist} - {0.album} - {0.title}: {1}', item, popularity)
 
@@ -73,10 +78,10 @@ class Popularity(BeetsPlugin):
                 item.store()
 
         except requests.exceptions.HTTPError:
-            self._log.warning(u'Bad status code in response from Spotify API')
+            self._log.warning(u'Bad status code in API response')
         except EmptyResponseError:
             self._log.debug(
-                u'{0.title} - {0.artist} not found on Spotify', item)
+                u'{0.title} - {0.artist} not found', item)
 
 
 class EmptyResponseError(Exception):

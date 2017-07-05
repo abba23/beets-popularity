@@ -2,6 +2,8 @@
 
 Beets plugin to store the popularity values from Spotify as flexible item attributes in the database
 
+**Note: Because of the recent changes in the authentication process for the Spotify API, the popularity values will be fetched from Deezer instead for the time being.**
+
 ## Installation
 Using pip:
   
@@ -26,7 +28,7 @@ Manually:
 | -n | \-\-nowrite | print the popularity values without storing them |
 
 ## Import
-All imported files will automatically have a popularity attribute and value assigned to them, if they are on Spotify and the plugin is enabled.
+All imported songs will automatically have a popularity attribute and value assigned to them if the plugin is enabled.
     
 ## Query
 As the popularity of a song is a value between 0 and 100, you could filter your library like this in order to list all tracks that have a popularity of at least 20:
