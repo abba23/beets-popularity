@@ -59,7 +59,7 @@ class Popularity(BeetsPlugin):
             response.raise_for_status()
 
             # load response as json
-            response_json = json.loads(response.content)
+            response_json = json.loads(response.text)
             tracks = response_json["data"]
             #tracks = response_json["tracks"]["items"]
 
