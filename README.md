@@ -1,20 +1,23 @@
 # beets-popularity
 
-Beets plugin to store the popularity values from Spotify as flexible item attributes in the database
-
-**Note: Because of the recent changes in the authentication process for the Spotify API, the popularity values will be fetched from Deezer instead for the time being.**
+[Beets](http://beets.io/) plugin to store the popularity values from Deezer as flexible item attributes in the database
 
 ## Installation
 Using pip:
-  
-    pip install beets-popularity
+
+    $ pip install beets-popularity
 
 Manually:
 
-    git clone https://github.com/abba23/beets-popularity.git
-    cd beets-popularity
-    python setup.py install
+    $ git clone https://github.com/abba23/beets-popularity.git
+    $ cd beets-popularity
+    $ python setup.py install
 
+You can then enable the plugin by [adding it to your `config.yaml`](https://beets.readthedocs.io/en/latest/plugins/index.html#using-plugins):
+
+```yaml
+plugins: popularity
+```
 ## Usage
     $ beet popularity happy
     popularity: Bon Jovi - The Circle - Happy Now: 20
@@ -29,7 +32,7 @@ Manually:
 
 ## Import
 All imported songs will automatically have a popularity attribute and value assigned to them if the plugin is enabled.
-    
+
 ## Query
 As the popularity of a song is a value between 0 and 100, you could filter your library like this in order to list all tracks that have a popularity of at least 20:
 
@@ -45,6 +48,6 @@ This is especially useful in combination with the [Smart Playlist Plugin](https:
         playlists:
             - name: popular.m3u
               query: 'popularity:70..'
-    
+
             - name: popular_rock.m3u
               query: 'popularity:60.. genre:Rock'
