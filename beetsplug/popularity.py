@@ -5,7 +5,7 @@ from beets.dbcore import types
 import beets.ui as ui
 import json
 import requests
-
+import re
 
 class Popularity(BeetsPlugin):
     
