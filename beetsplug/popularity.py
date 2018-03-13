@@ -45,6 +45,21 @@ class Popularity(BeetsPlugin):
     def _on_write(self, item, path, tags):
         # query and set popularity value for the item that is to be imported
         self._set_popularity(item, False)
+    
+    # helper functions
+    def _replace_brackets(self, string):
+        # replace all brackets and its content within the Title
+        string = re.sub(r'\(.*?\)', '', string)
+        string = re.sub(r'\[.*?\]', '', string)
+        string = re.sub('\s+', ' ', string).strip()
+        return string
+    def _has_brackets(self, string):
+        # replace true if string contains brackets
+        brackets = ["(", ")", "[", "]"]
+        has_brackets = False
+        if any(bracket in string for bracket in brackets):
+            has_brackets = True
+        return has_brackets
 
     def _set_popularity(self, item, nowrite):
         # query Spotify API
