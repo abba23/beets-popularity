@@ -6,8 +6,10 @@ import beets.ui as ui
 import json
 import requests
 import re
+import time
 
 class Popularity(BeetsPlugin):
+    apirequests = 0
     
 # inital functions
     def __init__(self):
@@ -68,6 +70,13 @@ class Popularity(BeetsPlugin):
         payload = {'q': query, 'order': 'RANKING'}
         #payload = {'q': query, 'type': 'track', 'limit': '1'}
         response = requests.get(self.API_URL, params=payload)
+        
+        # sleep for 3 seconds if 50 api requests were executed due to deezers api limit that says: "limited to 50 requests / 5 seconds"
+        if self.apirequests == 50:
+            self.apirequests = 0
+            time.sleep(2)
+        self.apirequests += 1
+        
         try:
             # raise an exception for bad response status codes
             response.raise_for_status()
