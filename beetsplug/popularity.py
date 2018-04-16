@@ -131,9 +131,10 @@ class Popularity(BeetsPlugin):
     def _set_popularity(self, item, nowrite):
         # replacing specific minus from musicbrainz with that it can't find anything from the API (compare: http://unicode.scarfboy.com/?s=%E2%80%90 and  http://unicode.scarfboy.com/?s=-)
         # example: "blink‐182" will be "blink-182"
-        artiststr = item.artist.replace("‐", "-")
-        albumstr = item.album.replace("‐", "-")
-        titlestr = item.title.replace("‐", "-")
+        replacechar = u'\u2010'
+        artiststr = item.artist.replace(replacechar, "-")
+        albumstr = item.album.replace(replacechar, "-")
+        titlestr = item.title.replace(replacechar, "-")
 
         artistseperators = [" feat ", " feat. ", " & ", ", ", " , ", " featuring "]
         # delete featuring strings out of artist
