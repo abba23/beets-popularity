@@ -3,6 +3,8 @@
 [Beets](http://beets.io/) plugin to store the popularity values from Deezer as flexible item attributes in the database
 
 ## Installation
+*Note: this branch might not be compatible with Python 2.X  It is only tested with Python 3.5.3*
+
 Using pip:
 
     $ pip install beets-popularity
